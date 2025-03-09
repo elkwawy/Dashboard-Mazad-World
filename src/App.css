@@ -1,0 +1,80 @@
+/* Reset default styles */
+#root {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+
+.ant-layout {
+  min-height: 100vh;
+}
+
+/* Avatar hover effect */
+.ant-avatar {
+  transition: transform 0.2s ease-in-out;
+}
+.ant-avatar:hover {
+  transform: scale(1.05);
+}
+
+.disable-tooltip {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  display: inline-block;
+  pointer-events: none; /* تعطيل الـ Tooltip */
+}
+
+/* Avatar hover effect */
+.ant-avatar {
+  transition: transform 0.2s ease-in-out;
+}
+
+.ant-avatar:hover {
+  transform: scale(1.05);
+}
+
+/* Button hover animations */
+.ant-btn {
+  transition: all 0.2s ease-in-out !important;
+}
+
+.ant-btn:hover {
+  transform: translateY(-1px);
+}
+
+/* Table hover effects */
+.ant-table-tbody > tr:hover > td {
+  background-color: #f0f7ff !important;
+}
+
+/* Card hover effects */
+.ant-card {
+  transition: all 0.2s ease-in-out;
+}
+
+.ant-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+
+
+
+
+
+
+.stats-row {
+  margin-bottom: 24px;
+}
+
+.stats-card {
+  text-align: center;
+}
+
+
+
+.chart-card {
+  height: 400px;
+}
