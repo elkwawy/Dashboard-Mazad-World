@@ -8,12 +8,19 @@ const UpdateCategory = ({ category }) => {
   const [form] = Form.useForm();
   const { mutate: updateCategory, isPending } = useUpdateCategoryHook();
 
+  useEffect(() => {
+    if (category) {
+      form.setFieldsValue({
+        name: category.name,
+        photo: category.photo
+          ? [{ uid: "-1", name: "Current Photo", url: category.photo }]
+          : [],
+      });
+    }
+  }, [category, form]);
+
   const showModal = () => {
     setIsModalVisible(true);
-    form.setFieldsValue({
-      name: category.name,
-      photo: [],
-    });
   };
 
   const handleCancel = () => {
@@ -22,18 +29,19 @@ const UpdateCategory = ({ category }) => {
   };
 
   const handleSubmit = (formData) => {
+    const formattedData = new FormData();
+    formattedData.append("name", formData.name);
 
-
-    // const formattedData = new FormData();
-    // formattedData.append("name", formData.name);
-    // if (formData.photo && formData.photo.length > 0) {
-    //   formattedData.append("photo", formData.photo[0].originFileObj);
-    // }
-
-    // console.log(formData);
+    if (
+      formData.photo &&
+      formData.photo.length > 0 &&
+      formData.photo[0].originFileObj
+    ) {
+      formattedData.append("photo", formData.photo[0].originFileObj);
+    }
 
     updateCategory(
-      { categoryId: category.id, categoryData: formData },
+      { categoryId: category.id, categoryData: formattedData },
       {
         onSuccess: () => {
           handleCancel();
@@ -41,7 +49,6 @@ const UpdateCategory = ({ category }) => {
       }
     );
   };
-  const normFile = (e) => e?.fileList || [];
 
   return (
     <>
@@ -60,14 +67,7 @@ const UpdateCategory = ({ category }) => {
         onCancel={handleCancel}
         footer={null}
       >
-        <Form
-          form={form}
-          layout="vertical"
-          onFinish={handleSubmit}
-          initialValues={{
-            name: category.name || "",
-          }}
-        >
+        <Form form={form} layout="vertical" onFinish={handleSubmit}>
           {/* Name Field */}
           <Form.Item
             name="name"
@@ -78,18 +78,22 @@ const UpdateCategory = ({ category }) => {
           </Form.Item>
 
           {/* Photo Upload Field */}
-          {/*
-            <Form.Item
-              name="photo"
-              label="Photo"
-              valuePropName="fileList"
-              getValueFromEvent={normFile}
+          <Form.Item
+            name="photo"
+            label="Photo"
+            valuePropName="fileList"
+            getValueFromEvent={(e) => e?.fileList || []}
+            rules={[{ required: true, message: "Photo is required" }]}
+          >
+            <Upload
+              listType="picture"
+              maxCount={1}
+              beforeUpload={() => false}
+              defaultFileList={form.getFieldValue("photo")}
             >
-              <Upload listType="picture" maxCount={1} beforeUpload={() => false}>
-                <Button icon={<UploadOutlined />}>Upload Photo</Button>
-              </Upload>
-            </Form.Item>
-            */}
+              <Button icon={<UploadOutlined />}>Upload Photo</Button>
+            </Upload>
+          </Form.Item>
 
           <Button type="primary" htmlType="submit" loading={isPending} block>
             Update Category

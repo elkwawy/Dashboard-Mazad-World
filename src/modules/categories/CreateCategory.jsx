@@ -26,14 +26,12 @@ const CreateCategory = () => {
 
     addNewCategory(formattedData, {
       onSuccess: () => {
-        // handleCancel();
+        handleCancel();
       },
     });
   };
 
-  const normFile = (e) => {
-    return e?.fileList || [];
-  };
+
 
   return (
     <>
@@ -69,14 +67,10 @@ const CreateCategory = () => {
             name="photo"
             label="Photo"
             valuePropName="fileList"
-            getValueFromEvent={normFile}
+            getValueFromEvent={(e) => e?.fileList || []}
             rules={[{ required: true, message: "Photo is required" }]}
           >
-            <Upload
-              listType="picture"
-              maxCount={1}
-              beforeUpload={() => false} 
-            >
+            <Upload listType="picture" maxCount={1} beforeUpload={() => false}>
               <Button icon={<UploadOutlined />}>Upload Photo</Button>
             </Upload>
           </Form.Item>

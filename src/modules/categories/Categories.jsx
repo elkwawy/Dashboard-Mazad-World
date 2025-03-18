@@ -19,7 +19,7 @@ function Users() {
       title: "Image",
       dataIndex: "photo",
       key: "photo",
-      render: (photo) => <Image src={`http://your-server.com/uploads/${photo}`} alt="img" width={50} />,
+      render: (photo) => <Image src={photo} alt="img" className="object-cover" width={50} height={50} />,
     },
     {
       title: "Name",

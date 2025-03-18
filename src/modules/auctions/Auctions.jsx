@@ -20,11 +20,11 @@ function Auctions() {
   const columns = [
     {
       title: "Image",
-      dataIndex: "image",
-      key: "image",
-      render: (imageUrl) =>
-        imageUrl ? (
-          <Image width={50} src={imageUrl} alt="Auction Img" />
+      dataIndex: "images",
+      key: "images",
+      render: (images) =>
+        images ? (
+          <Image width={50} src={images} alt="Auction Img" />
         ) : (
           "No Image"
         ),

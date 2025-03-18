@@ -27,7 +27,7 @@ const CreateLatestNews = () => {
 
     addNewNews(formattedData, {
       onSuccess: () => {
-        handleCancel();
+        // handleCancel();
       },
     });
   };
