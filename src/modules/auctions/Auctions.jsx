@@ -14,9 +14,8 @@ function Auctions() {
     auction.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-
   console.log(auctions);
-  
+
   const columns = [
     {
       title: "Image",
@@ -24,7 +23,7 @@ function Auctions() {
       key: "images",
       render: (images) =>
         images ? (
-          <Image width={50} src={images} alt="Auction Img" />
+          <Image width={50} src={images[0]} alt="Auction Img" />
         ) : (
           "No Image"
         ),
@@ -34,17 +33,11 @@ function Auctions() {
       dataIndex: "title",
       key: "title",
     },
-    {
-      title: "Description",
-      dataIndex: "description",
-      key: "description",
-      ellipsis: true,
-    },
-    {
-      title: "Starting Price",
-      dataIndex: "starting_price",
-      key: "starting_price",
-    },
+    // {
+    //   title: "Starting Price",
+    //   dataIndex: "starting_price",
+    //   key: "starting_price",
+    // },
     {
       title: "Current Price",
       dataIndex: "current_price",
@@ -97,16 +90,12 @@ function Auctions() {
       ) : (
         <Table
           columns={columns}
-          dataSource={filteredAuctions.map((auction, index) => ({
-            ...auction,
-            key: index,
-   
-          }))}
+          dataSource={filteredAuctions}
           pagination={{ pageSize: 5 }}
           scroll={{ x: 800 }}
           className="overflow-auto"
           loading={isFetching}
-          rowKey="title"
+          rowKey="id"
         />
       )}
     </section>
