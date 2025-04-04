@@ -21,8 +21,6 @@ import ProtectedRoutes from "@/modules/auth/ProtectedRoutes";
 import { useEffect } from "react";
 import Cookies from "js-cookie";
 import NotFound from "./modules/NotFound";
-import Tester from "./layouts/testing/Tester";
-import TestList from "./layouts/testing/pages/TestList";
 import LatestNews from "./modules/latestNews/LatestNews";
 import Faqs from "./modules/faqs/Faqs";
 import Auctions from "./modules/auctions/Auctions";
@@ -85,8 +83,6 @@ function App() {
           <Route path="auctions" element={<Auctions />} />
           <Route path="latestNews" element={<LatestNews />} />
           <Route path="products" element={<Products />} />
-          <Route path="test" element={<TestList />} />
-          <Route path="tester" element={<Tester />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
