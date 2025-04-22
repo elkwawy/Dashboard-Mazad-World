@@ -1,8 +1,20 @@
-import { Button, Form, Input, Modal, DatePicker, InputNumber, Row, Col, Upload } from "antd";
+import {
+  Button,
+  Form,
+  Input,
+  Modal,
+  DatePicker,
+  InputNumber,
+  Row,
+  Col,
+  Upload,
+  Select,
+} from "antd";
 import { useState } from "react";
 import { useCreateAuctionHook } from "./hooks/useCreateAuctionHook";
 import dayjs from "dayjs";
 import { UploadOutlined } from "@ant-design/icons";
+import { useGetCategoriesHook } from "../categories/hooks/useGetCategoriesHook";
 
 const CreateAuction = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -18,22 +30,34 @@ const CreateAuction = () => {
     form.resetFields();
   };
 
+
+  const {
+    categories,
+    isLoading: categoriesIsLoading,
+    error: categoriesError,
+  } = useGetCategoriesHook();
+
   const handleSubmit = (formData) => {
     const formattedData = new FormData();
     formattedData.append("title", formData.title);
     formattedData.append("description", formData.description);
     formattedData.append("starting_price", formData.starting_price);
     formattedData.append("current_price", formData.current_price);
+    formattedData.append("paymentLink", formData.paymentLink);
     formattedData.append(
       "start_time",
-      formData.start_time ? dayjs(formData.start_time).format("YYYY-MM-DD HH:mm:ss") : null
+      formData.start_time
+        ? dayjs(formData.start_time).format("YYYY-MM-DD HH:mm:ss")
+        : null
     );
     formattedData.append(
       "end_time",
-      formData.end_time ? dayjs(formData.end_time).format("YYYY-MM-DD HH:mm:ss") : null
+      formData.end_time
+        ? dayjs(formData.end_time).format("YYYY-MM-DD HH:mm:ss")
+        : null
     );
     formattedData.append("category_id", formData.category_id);
-    formattedData.append("user_id", formData.user_id);
+    // formattedData.append("user_id", formData.user_id);
 
     // إضافة الصور إلى FormData
     if (formData.images && formData.images.length > 0) {
@@ -43,6 +67,8 @@ const CreateAuction = () => {
         }
       });
     }
+
+
 
     addNewAuction(formattedData, {
       onSuccess: () => {
@@ -77,6 +103,7 @@ const CreateAuction = () => {
             start_time: null,
             end_time: null,
             category_id: null,
+            paymentLink: null,
             user_id: null,
           }}
         >
@@ -93,25 +120,38 @@ const CreateAuction = () => {
             label="Description"
             rules={[{ required: true, message: "Description is required" }]}
           >
-            <Input.TextArea placeholder="Enter description" allowClear rows={3} />
+            <Input.TextArea
+              placeholder="Enter description"
+              allowClear
+              rows={3}
+            />
           </Form.Item>
 
-          {/* مكون رفع الصور */}
           <Form.Item
-            name="images"
-            label="Upload Images"
-            valuePropName="fileList"
-            getValueFromEvent={(e) => e?.fileList || []}
-            rules={[{ required: true, message: "Please upload at least one image" }]}
+          name="category_id"
+          label="Category"
+          rules={[{ required: true, message: "Please select a category" }]}
+        >
+          <Select
+            placeholder="Select a category"
+            loading={categoriesIsLoading}
+            allowClear
+            options={
+              categories?.map((cat) => ({
+                label: cat.name,
+                value: cat.id,
+              })) || []
+            }
+          />
+        </Form.Item>
+        
+
+          <Form.Item
+            name="paymentLink"
+            label="Payment Link"
+            rules={[{ required: true, message: "Payment Link is required" }]}
           >
-            <Upload
-              listType="picture-card"
-              maxCount={4} 
-              beforeUpload={() => false} 
-              multiple
-            >
-              <Button icon={<UploadOutlined />}>Upload</Button>
-            </Upload>
+            <Input placeholder="Enter title" allowClear />
           </Form.Item>
 
           <Row gutter={16}>
@@ -119,18 +159,30 @@ const CreateAuction = () => {
               <Form.Item
                 name="starting_price"
                 label="Starting Price"
-                rules={[{ required: true, message: "Starting Price is required" }]}
+                rules={[
+                  { required: true, message: "Starting Price is required" },
+                ]}
               >
-                <InputNumber placeholder="Enter starting price" style={{ width: "100%" }} min={0} />
+                <InputNumber
+                  placeholder="Enter starting price"
+                  style={{ width: "100%" }}
+                  min={0}
+                />
               </Form.Item>
             </Col>
             <Col span={12}>
               <Form.Item
                 name="current_price"
                 label="Current Price"
-                rules={[{ required: true, message: "Current Price is required" }]}
+                rules={[
+                  { required: true, message: "Current Price is required" },
+                ]}
               >
-                <InputNumber placeholder="Enter current price" style={{ width: "100%" }} min={0} />
+                <InputNumber
+                  placeholder="Enter current price"
+                  style={{ width: "100%" }}
+                  min={0}
+                />
               </Form.Item>
             </Col>
           </Row>
@@ -156,26 +208,24 @@ const CreateAuction = () => {
             </Col>
           </Row>
 
-          <Row gutter={16}>
-            <Col span={12}>
-              <Form.Item
-                name="category_id"
-                label="Category ID"
-                rules={[{ required: true, message: "Category ID is required" }]}
-              >
-                <InputNumber placeholder="Enter category ID" style={{ width: "100%" }} min={0} />
-              </Form.Item>
-            </Col>
-            <Col span={12}>
-              <Form.Item
-                name="user_id"
-                label="User ID"
-                rules={[{ required: true, message: "User ID is required" }]}
-              >
-                <InputNumber placeholder="Enter user ID" style={{ width: "100%" }} min={0} />
-              </Form.Item>
-            </Col>
-          </Row>
+          <Form.Item
+            name="images"
+            label="Upload Images"
+            valuePropName="fileList"
+            getValueFromEvent={(e) => e?.fileList || []}
+            rules={[
+              { required: true, message: "Please upload at least one image" },
+            ]}
+          >
+            <Upload
+              listType="picture-card"
+              // maxCount={1}
+              beforeUpload={() => false}
+              // multiple
+            >
+              <Button icon={<UploadOutlined />}>Upload</Button>
+            </Upload>
+          </Form.Item>
 
           <Button type="primary" htmlType="submit" loading={isPending} block>
             Add Auction

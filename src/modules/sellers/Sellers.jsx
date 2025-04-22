@@ -1,20 +1,17 @@
-import { Table, Space, Spin, Input } from "antd";
-import CreateSeller from "./CreateSeller";
-import { useGetSellersHook } from "./hooks/useGetSellersHook";
-import UpdateSeller from "./UpdateSeller";
-import DeleteSeller from "./DeleteSeller";
+import { Table, Space, Spin, Input, Badge, Empty } from "antd";
 import { useState } from "react";
 import { SearchOutlined } from "@ant-design/icons";
+import CreateSeller from "./CreateSeller";
+import UpdateSeller from "./UpdateSeller";
+import DeleteSeller from "./DeleteSeller";
+import { useGetSellersHook } from "./hooks/useGetSellersHook";
 
-function Sellers() {
+const Sellers = () => {
   const { sellers, isLoading, isFetching, error } = useGetSellersHook();
   const [searchQuery, setSearchQuery] = useState("");
-  console.log(sellers);
-  
 
-  const filteredSellers = sellers.filter(
-    (seller) =>
-      seller.name.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredSellers = sellers.filter((seller) =>
+    seller.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const columns = [
@@ -22,11 +19,6 @@ function Sellers() {
       title: "Name",
       dataIndex: "name",
       key: "name",
-    },
-    {
-      title: "Status",
-      dataIndex: "status",
-      key: "status",
     },
     {
       title: "Start Count",
@@ -39,10 +31,24 @@ function Sellers() {
       key: "countReviews",
     },
     {
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
+      render: (status) => {
+        const isActive = status === 1;
+        return (
+          <Badge
+            color={isActive ? "green" : "red"}
+            text={isActive ? "Active" : "Inactive"}
+          />
+        );
+      },
+    },
+    {
       title: "Actions",
       key: "actions",
       render: (_, record) => (
-        <Space>
+        <Space size="middle">
           <UpdateSeller seller={record} />
           <DeleteSeller seller={record} />
         </Space>
@@ -69,21 +75,29 @@ function Sellers() {
       {error && <p className="text-red-500">Error: {error.message}</p>}
 
       {isLoading ? (
-        <div className="flex justify-center items-center h-[55vh]">
+        <div className="flex justify-center items-center h-[50vh]">
           <Spin size="large" />
         </div>
       ) : (
         <Table
+          rowKey={(record) => record.id}
           columns={columns}
           dataSource={filteredSellers}
           pagination={{ pageSize: 5 }}
-          scroll={{ x: 600 }}
-          className="overflow-auto"
+          scroll={{ x: true }}
           loading={isFetching}
+          locale={{
+            emptyText: (
+              <Empty
+                description="No sellers found"
+                image={Empty.PRESENTED_IMAGE_SIMPLE}
+              />
+            ),
+          }}
         />
       )}
     </section>
   );
-}
+};
 
 export default Sellers;

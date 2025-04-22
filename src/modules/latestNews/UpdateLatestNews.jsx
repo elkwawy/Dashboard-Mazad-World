@@ -1,9 +1,8 @@
-import { Button, Form, Input, Modal, Select } from "antd";
+import { Button, Form, Input, Modal, DatePicker } from "antd";
 import { useState } from "react";
 import { useUpdateLatestNewsHook } from "./hooks/useUpdateLatestNewsHook";
 import { EditFilled } from "@ant-design/icons";
-
-const { Option } = Select;
+import dayjs from "dayjs";
 
 const UpdateLatestNews = ({ news }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -20,8 +19,13 @@ const UpdateLatestNews = ({ news }) => {
   };
 
   const handleSubmit = (formData) => {
+    const formattedData = {
+      ...formData,
+      date: formData.date ? dayjs(formData.date).format("YYYY-MM-DD") : null,
+    };
+
     updateNews(
-      { newsId: news.id, newsData: formData },
+      { newsId: news.id, newsData: formattedData },
       {
         onSuccess: () => {
           handleCancel();
@@ -53,6 +57,8 @@ const UpdateLatestNews = ({ news }) => {
           initialValues={{
             title: news.title || "",
             description: news.description || "",
+            image: news.image || "",
+            date: news.date ? dayjs(news.date) : null,
           }}
         >
           <Form.Item
@@ -68,9 +74,28 @@ const UpdateLatestNews = ({ news }) => {
             label="Description"
             rules={[{ required: true, message: "Description is required" }]}
           >
-            <Input.TextArea placeholder="Enter description" allowClear rows={3} />
+            <Input.TextArea
+              placeholder="Enter description"
+              allowClear
+              rows={3}
+            />
           </Form.Item>
 
+          <Form.Item
+            name="image"
+            label="Image URL"
+            rules={[{ required: true, message: "Image URL is required" }]}
+          >
+            <Input placeholder="Enter image URL" allowClear />
+          </Form.Item>
+
+          <Form.Item
+            name="date"
+            label="Date"
+            rules={[{ required: true, message: "Date is required" }]}
+          >
+            <DatePicker style={{ width: "100%" }} />
+          </Form.Item>
 
           <Button type="primary" htmlType="submit" loading={isPending} block>
             Update News

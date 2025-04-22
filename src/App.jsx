@@ -11,7 +11,6 @@ import DashboardLayout from "./layouts/DashboardLayout/DashboardLayout";
 import Dashboard from "./modules/dashboard/Dashboard";
 import Users from "./modules/users/Users";
 import Categories from "./modules/categories/Categories";
-import Products from "./modules/products/Products";
 import Customers from "./modules/customers/Customers";
 import Sellers from "@/modules/sellers/Sellers";
 import { path } from "@/constant/paths";
@@ -82,7 +81,6 @@ function App() {
           <Route path="faqs" element={<Faqs />} />
           <Route path="auctions" element={<Auctions />} />
           <Route path="latestNews" element={<LatestNews />} />
-          <Route path="products" element={<Products />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

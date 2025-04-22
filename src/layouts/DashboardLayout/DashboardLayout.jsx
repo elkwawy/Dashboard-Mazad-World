@@ -24,7 +24,7 @@ function DashboardLayout() {
         }}
       >
         <div className="text-white h-8 m-4 ml-2 text-center text-xl font-bold">
-          ELkwawy
+          Mazed World
         </div>
         <SidebarItems />
       </Sider>

@@ -9,7 +9,6 @@ import { SearchOutlined } from "@ant-design/icons";
 function Auctions() {
   const { auctions, isLoading, isFetching, error } = useGetAuctionsHook();
   const [searchQuery, setSearchQuery] = useState("");
-
   const filteredAuctions = auctions.filter((auction) =>
     auction.title.toLowerCase().includes(searchQuery.toLowerCase())
   );

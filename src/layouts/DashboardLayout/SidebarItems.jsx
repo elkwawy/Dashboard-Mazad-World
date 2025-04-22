@@ -5,7 +5,7 @@ import {
   AppstoreOutlined,
   TeamOutlined,
 } from "@ant-design/icons";
-import { FaNewspaper, FaShoppingBag, FaUsers } from "react-icons/fa";
+import { FaNewspaper, FaUsers } from "react-icons/fa";
 import { RiAuctionLine, RiTeamFill } from "react-icons/ri";
 import { FaQuestion } from "react-icons/fa";
 const SidebarItems = () => {
@@ -39,6 +39,11 @@ const SidebarItems = () => {
       label: "FAQs",
     },
     {
+      key: "categories",
+      icon: <AppstoreOutlined />,
+      label: "Categories",
+    },
+    {
       key: "auctions",
       icon: <RiAuctionLine />,
       label: "Auctions",
@@ -47,16 +52,6 @@ const SidebarItems = () => {
       key: "latestNews",
       icon: <FaNewspaper />,
       label: "Latest News",
-    },
-    {
-      key: "categories",
-      icon: <AppstoreOutlined />,
-      label: "Categories",
-    },
-    {
-      key: "products",
-      icon: <FaShoppingBag />,
-      label: "Products",
     },
   ];
   return (

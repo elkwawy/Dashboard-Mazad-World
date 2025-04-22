@@ -6,7 +6,7 @@ import CreateCategory from "./CreateCategory";
 import UpdateCategory from "./UpdateCategory";
 import DeleteCategory from "./DeleteCategory";
 
-function Users() {
+function Categories() {
   const { categories, isLoading, isFetching, error } = useGetCategoriesHook();
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -77,4 +77,4 @@ function Users() {
   );
 }
 
-export default Users;
+export default Categories;

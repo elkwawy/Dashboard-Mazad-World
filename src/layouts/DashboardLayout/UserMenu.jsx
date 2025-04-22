@@ -1,7 +1,6 @@
 import { LogoutOutlined, UserOutlined } from "@ant-design/icons";
 import { Avatar, Dropdown } from "antd";
 import { useState } from "react";
-import LanguageSelector from "./LanguageSelector";
 import useAuthHook from "@/modules/auth/useAuthHook";
 const UserMenu = () => {
   const { user, handleLogout } = useAuthHook();
@@ -17,13 +16,6 @@ const UserMenu = () => {
         </div>
       ),
     },
-    // {
-    //   type: "divider",
-    // },
-    // {
-    //   key: "language",
-    //   label: <LanguageSelector setDropdownOpen={setDropdownOpen} />,
-    // },
     {
       type: "divider",
     },

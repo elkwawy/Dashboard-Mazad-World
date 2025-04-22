@@ -1,7 +1,9 @@
-import { Button, Form, Input, Modal, Spin } from "antd";
+import { Button, Form, Input, Modal, Select } from "antd";
 import { useState } from "react";
 import { useUpdateSellerHook } from "./hooks/useUpdateSellerHook";
 import { EditFilled } from "@ant-design/icons";
+
+const { Option } = Select;
 
 const UpdateSeller = ({ seller }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -10,6 +12,12 @@ const UpdateSeller = ({ seller }) => {
 
   const showModal = () => {
     setIsModalVisible(true);
+    form.setFieldsValue({
+      name: seller.name || "",
+      status: seller.status ?? null,
+      startcount: seller.startcount || "",
+      countReviews: seller.countReviews || "",
+    });
   };
 
   const handleCancel = () => {
@@ -48,9 +56,6 @@ const UpdateSeller = ({ seller }) => {
           form={form}
           layout="vertical"
           onFinish={handleSubmit}
-          initialValues={{
-            name: seller.name || "",
-          }}
         >
           <Form.Item
             name="name"
@@ -58,6 +63,31 @@ const UpdateSeller = ({ seller }) => {
             rules={[{ required: true, message: "Name is required" }]}
           >
             <Input placeholder="Enter name" allowClear />
+          </Form.Item>
+
+          <Form.Item
+            name="status"
+            label="Status"
+            rules={[{ required: true, message: "Status is required" }]}
+          >
+            <Select placeholder="Select status" allowClear>
+              <Option value={1}>Active</Option>
+              <Option value={0}>Inactive</Option>
+            </Select>
+          </Form.Item>
+
+          <Form.Item
+            name="startcount"
+            label="Start Count"
+          >
+            <Input placeholder="Enter start count" allowClear />
+          </Form.Item>
+
+          <Form.Item
+            name="countReviews"
+            label="Count Reviews"
+          >
+            <Input placeholder="Enter count reviews" allowClear />
           </Form.Item>
 
           <Button type="primary" htmlType="submit" loading={isPending} block>

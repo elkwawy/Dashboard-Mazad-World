@@ -1,6 +1,8 @@
-import { Button, Form, Input, Modal, Spin } from "antd";
+import { Button, Form, Input, Modal, Select } from "antd";
 import { useState } from "react";
 import { useCreateSellerHook } from "./hooks/useCreateSellerHook";
+
+const { Option } = Select;
 
 const CreateSeller = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -17,8 +19,8 @@ const CreateSeller = () => {
   };
 
   const handleSubmit = (formData) => {
-    console.log(formData);
-    
+    console.log(formData); // هنا هتشوف status جاية كـ 1 أو 0
+
     addNewSeller(formData, {
       onSuccess: () => {
         handleCancel();
@@ -43,7 +45,7 @@ const CreateSeller = () => {
           onFinish={handleSubmit}
           initialValues={{
             name: "",
-            status: "",
+            status: null,
             startcount: "",
             countReviews: "",
           }}
@@ -56,10 +58,15 @@ const CreateSeller = () => {
             <Input placeholder="Enter name" allowClear />
           </Form.Item>
 
-          <Form.Item name="status" label="Status"
-          rules={[{ required: true, message: "Status is required" }]}
+          <Form.Item
+            name="status"
+            label="Status"
+            rules={[{ required: true, message: "Status is required" }]}
           >
-            <Input placeholder="Enter status" allowClear />
+            <Select placeholder="Select status" allowClear>
+              <Option value={1}>Active</Option>
+              <Option value={0}>Inactive</Option>
+            </Select>
           </Form.Item>
 
           <Form.Item name="startcount" label="Start Count">
