@@ -24,14 +24,14 @@ const SidebarItems = () => {
       label: "Users",
     },
     {
-      key: "categories",
-      icon: <AppstoreOutlined />,
-      label: "Categories",
-    },
-    {
       key: "customers",
       icon: <TeamOutlined />,
       label: "Customers",
+    },
+    {
+      key: "categories",
+      icon: <AppstoreOutlined />,
+      label: "Categories",
     },
     {
       key: "auctions",

@@ -67,7 +67,7 @@ function Categories() {
             ...category,
             key: category.id,
           }))}
-          pagination={{ pageSize: 5 }}
+          pagination={{ pageSize: 10 }}
           scroll={{ x: 600 }}
           className="overflow-auto"
           loading={isFetching}

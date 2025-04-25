@@ -113,7 +113,7 @@ function Auctions() {
         <Table
           columns={columns}
           dataSource={filteredAuctions}
-          pagination={{ pageSize: 5 }}
+          pagination={{ pageSize: 10 }}
           scroll={{ x: 800 }}
           className="overflow-auto"
           loading={isFetching}
