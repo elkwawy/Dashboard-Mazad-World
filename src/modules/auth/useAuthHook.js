@@ -27,6 +27,7 @@ const useAuthHook = () => {
 
       message.success("Login successful!");
       navigate(`/${path.main}/dashboard`);
+      window.location.reload();
     } catch (error) {
       console.error("Login Error:", error);
 

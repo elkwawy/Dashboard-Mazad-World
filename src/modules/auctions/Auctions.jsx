@@ -5,6 +5,7 @@ import UpdateAuction from "./UpdateAuction";
 import DeleteAuction from "./DeleteAuction";
 import { useState } from "react";
 import { SearchOutlined } from "@ant-design/icons";
+import { useGetCategoriesHook } from "../categories/hooks/useGetCategoriesHook";
 
 function Auctions() {
   const { auctions, isLoading, isFetching, error } = useGetAuctionsHook();
@@ -12,6 +13,14 @@ function Auctions() {
   const filteredAuctions = auctions.filter((auction) =>
     auction.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  console.log(auctions);
+
+  const {
+    categories,
+    isLoading: categoriesIsLoading,
+    error: categoriesError,
+  } = useGetCategoriesHook();
 
   console.log(auctions);
 
@@ -32,6 +41,20 @@ function Auctions() {
       dataIndex: "title",
       key: "title",
     },
+    {
+      title: "Category",
+      dataIndex: "category_id",
+      key: "category",
+      render: (categoryId) => {
+        const category = categories.find((cat) => cat.id === categoryId);
+        return category ? category.name : "Unknown Category";
+      },
+    },
+    // {
+    //   title: "Description",
+    //   dataIndex: "description",
+    //   key: "description",
+    // },
     // {
     //   title: "Starting Price",
     //   dataIndex: "starting_price",
@@ -42,11 +65,11 @@ function Auctions() {
       dataIndex: "current_price",
       key: "current_price",
     },
-    {
-      title: "Start Time",
-      dataIndex: "start_time",
-      key: "start_time",
-    },
+    // {
+    //   title: "Start Time",
+    //   dataIndex: "start_time",
+    //   key: "start_time",
+    // },
     {
       title: "End Time",
       dataIndex: "end_time",
@@ -82,7 +105,7 @@ function Auctions() {
 
       {error && <p className="text-red-500">Error: {error.message}</p>}
 
-      {isLoading ? (
+      {isLoading || categoriesIsLoading ? (
         <div className="flex justify-center items-center h-[55vh]">
           <Spin size="large" />
         </div>

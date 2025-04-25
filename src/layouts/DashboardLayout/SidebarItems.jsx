@@ -24,9 +24,19 @@ const SidebarItems = () => {
       label: "Users",
     },
     {
+      key: "categories",
+      icon: <AppstoreOutlined />,
+      label: "Categories",
+    },
+    {
       key: "customers",
       icon: <TeamOutlined />,
       label: "Customers",
+    },
+    {
+      key: "auctions",
+      icon: <RiAuctionLine />,
+      label: "Auctions",
     },
     {
       key: "sellers",
@@ -37,16 +47,6 @@ const SidebarItems = () => {
       key: "faqs",
       icon: <FaQuestion />,
       label: "FAQs",
-    },
-    {
-      key: "categories",
-      icon: <AppstoreOutlined />,
-      label: "Categories",
-    },
-    {
-      key: "auctions",
-      icon: <RiAuctionLine />,
-      label: "Auctions",
     },
     {
       key: "latestNews",
