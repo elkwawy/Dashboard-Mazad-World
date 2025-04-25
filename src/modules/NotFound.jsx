@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { path } from "@/constant/paths";
 const NotFound = () => {
   const navigate = useNavigate();
-
+  //
   return (
     <Result
       status="404"
