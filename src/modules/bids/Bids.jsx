@@ -20,7 +20,7 @@ function Bids() {
   );
 
   const filteredBids = bids.filter((auction) =>
-    auction.payment_method.toLowerCase().includes(searchQuery.toLowerCase())
+    auction.product_title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const columns = [
@@ -95,7 +95,7 @@ function Bids() {
       <div className="search-add-container flex gap-4 mb-4">
         <Input
           prefix={<SearchOutlined className="text-gray-400 mr-2" />}
-          placeholder="Search by payment method..."
+          placeholder="Search by product title..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           allowClear
