@@ -8,6 +8,7 @@ import {
 import { FaNewspaper, FaUsers } from "react-icons/fa";
 import { RiAuctionLine, RiTeamFill } from "react-icons/ri";
 import { FaQuestion } from "react-icons/fa";
+import { IoMdContacts } from "react-icons/io";
 const SidebarItems = () => {
   const navigate = useNavigate();
   const path = useLocation().pathname.split("/")[2];
@@ -39,6 +40,11 @@ const SidebarItems = () => {
       label: "Auctions",
     },
     {
+      key: "bids",
+      icon: <FaNewspaper />,
+      label: "Bids",
+    },
+    {
       key: "sellers",
       icon: <RiTeamFill />,
       label: "Sellers",
@@ -52,6 +58,11 @@ const SidebarItems = () => {
       key: "latestNews",
       icon: <FaNewspaper />,
       label: "Latest News",
+    },
+    {
+      key: "contactUs",
+      icon: <IoMdContacts />,
+      label: "Contact Us",
     },
   ];
   return (

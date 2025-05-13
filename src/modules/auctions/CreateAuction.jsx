@@ -72,7 +72,7 @@ const CreateAuction = () => {
 
     addNewAuction(formattedData, {
       onSuccess: () => {
-        handleCancel();
+        // handleCancel();
       },
     });
   };

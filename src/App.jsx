@@ -13,6 +13,7 @@ import Users from "./modules/users/Users";
 import Categories from "./modules/categories/Categories";
 import Customers from "./modules/customers/Customers";
 import Sellers from "@/modules/sellers/Sellers";
+import Bids from "@/modules/bids/Bids";
 import { path } from "@/constant/paths";
 import "./App.css";
 import PublicRoutes from "@/modules/auth/PublicRoutes";
@@ -23,6 +24,7 @@ import NotFound from "./modules/NotFound";
 import LatestNews from "./modules/latestNews/LatestNews";
 import Faqs from "./modules/faqs/Faqs";
 import Auctions from "./modules/auctions/Auctions";
+import ContactUS from "./modules/contactUS/ContactUS";
 function App() {
   const token = Cookies.get(path.token);
   const isAuthenticated = Boolean(token);
@@ -80,6 +82,8 @@ function App() {
           <Route path="sellers" element={<Sellers />} />
           <Route path="faqs" element={<Faqs />} />
           <Route path="auctions" element={<Auctions />} />
+          <Route path="bids" element={<Bids />} />
+          <Route path="contactUs" element={<ContactUS />} />
           <Route path="latestNews" element={<LatestNews />} />
           <Route path="*" element={<NotFound />} />
         </Route>
